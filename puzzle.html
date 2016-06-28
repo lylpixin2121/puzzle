@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>测试</title>
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="author" content="liyanlong_gz _gz" />
+<meta name="viewport" content="width=320,minimum-scale=1,maximum-scale=5,user-scalable=no">
+<style type="text/css">
+/*此处是css reset初始化的地方 根据需要合并到你所需要专题的css中*/
+body,dl,dd,ul,ol,h1,h2,h3,h4,h5,h6,pre,form,input,textarea,p,hr,thead,tbody,tfoot,th,td{margin:0;padding:0;}
+ul,ol{list-style:none;}
+a{text-decoration:none;color:#333333;}
+a:hover{color:#333333;}
+a:visited{color:#333333;}
+html{-ms-text-size-adjust:none;-webkit-text-size-adjust:none;text-size-adjust:none;font-size:62.5%;}
+body{font-size:14px;line-height:1.5em;color:#333333;}
+html,body {height:100%;}
+body,button,input,select,textarea{font-family:'helvetica neue',tahoma,'hiragino sans gb',stheiti,'wenquanyi micro hei',\5FAE\8F6F\96C5\9ED1,\5B8B\4F53,sans-serif;}
+b,strong{font-weight:bold;}
+i,em{font-style:normal;}
+table{border-collapse:collapse;border-spacing:0;}
+table th,table td{border:1px solid #ddd;padding:5px;}
+table th{font-weight:inherit;border-bottom-width:2px;border-bottom-color:#ccc;}
+img{border:0 none;width:auto\9;max-width:100%;vertical-align:top;}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0;vertical-align:baseline;}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer;}
+button[disabled],input[disabled]{cursor:default;}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0;}
+input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;}
+input[type="search"]::-webkit-search-decoration{-webkit-appearance:none;}
+@media screen and (-webkit-min-device-pixel-ratio:0){
+    input{line-height:normal!important;}
+}
+select[size],select[multiple],select[size][multiple]{border:1px solid #AAA;padding:0;}
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block;}
+audio,canvas,video,progress{display:inline-block;}
+.g-doc{overflow: hidden;margin: 0 auto;}
+@media only screen and (min-width: 1025px){.g-doc{max-width:320px;}}
+@font-face {font-family:"didotItalic";src: url('DidotItalic.ttf');}
+</style>
+<!--[if IE 6]><script>document.execCommand("BackgroundImageCache", false, true)</script><![endif]-->
+<style type="text/css">
+    .doc{width: 291px;margin:0 auto;text-align: center;}
+    .wraper{width: 291px;height: 351px;margin:0 auto 50px;position: relative;}
+    .itemWrap{width: 291px;height: 351px;overflow: hidden;position: relative;background-size: 291px;}
+    .wraper .itemWrap>div{width: 97px;height: 117px;position: absolute;border:1px solid #fff;background: url(1.png) no-repeat;background-size: 291px;}
+
+
+
+    .wraper .itemWrap div:nth-child(1){top: 0;left: 0;}
+    .wraper .itemWrap div:nth-child(2){top: 0;left: 97px;}
+    .wraper .itemWrap div:nth-child(3){top: 0;left: 194px;}
+
+    .wraper .itemWrap div:nth-child(4){top: 117px;left: 0;}
+    .wraper .itemWrap div:nth-child(5){top: 117px;left: 97px;}
+    .wraper .itemWrap div:nth-child(6){top: 117px;left: 194px;}
+
+    .wraper .itemWrap div:nth-child(7){top: 234px;left: 0;}
+    .wraper .itemWrap div:nth-child(8){top: 234px;left: 97px;}
+    .wraper .itemWrap div:nth-child(9){top: 234px;left: 194px;}
+    
+
+    .fadeOut{animation:fadeOut 2s both; -webkit-animation : fadeOut 2s both;}
+    @-webkit-keyframes fadeOut {
+        0% {
+            opacity: 1
+        }
+
+        100% {
+            opacity: 0
+        }
+    }
+
+    .ready_p1{-webkit-animation:fadeInLeft 2.5s .5s ease both; position: absolute; top: 0; left: 0; width: 100%; height: 50px;}
+        @-webkit-keyframes fadeInLeft{
+            0%{-webkit-transform:scale(2)}
+            100%{-webkit-transform:scale(0); opacity: 0;}
+        }
+    .ready_p2{-webkit-animation:readyRight 2.5s 2.5s ease both; position: absolute; top: 0; left: 0;width: 100%; height: 50px;}
+    @-webkit-keyframes readyRight{
+        0%{-webkit-transform:scale(0); opacity: 1;}
+        100%{-webkit-transform:scale(3); opacity: 0;}
+    }
+    .tan_bg{display: none; position: absolute;width: 100%; height: 100%; top: 0; left: 0; z-index: 100; background: #000;}
+    .ready{position: absolute; top: 200px; left: 0; font-size: 45px; color: #ffffff; line-height: 50px; width: 100%; height: 50px; text-align: center;}
+    .tit{height: 50px;line-height: 50px;font-size: 20px;}
+    .s1 {
+        font-size: 12px;
+        color: #9c9783;
+    }
+    .s1 span{color: #000;font-weight: bold;}
+    .button{width: 100px;height: 30px;font-size: 20px;background:#000;color: #fff;line-height: 30px;margin: 0 auto;border-radius: 20px;}
+    .forbidden{background:#ccc;}
+    .overlay{width: 100%;height: 423px;position: absolute;top: 0;left: 0;z-index:20;display: none;}
+    .drag-box{display:none;width:96px;height:116px;position:absolute;z-index:99;background:url("1.png") no-repeat;background-size: 291px;border: 1px solid #fff;opacity: 0.7;}
+</style>
+</head>
+
+<body>
+<div class="doc">
+    <div class="tan_bg" id="ready">
+        <div class="ready">
+            <p class="ready_p1">READY!</p>
+            <p class="ready_p2">GO!!!</p>
+        </div>
+    </div>
+    <div class="tit">拼图游戏</div>
+    <p class="s1"><i>20秒内移动碎片，拼出图片</i>已用时： <span id="timer2">0</span>S</p>
+    <div class="wraper">
+        <div class="itemWrap" id="box">
+            <div class="item" style="background-position: 0 0;" data-num ="1"></div>
+            <div class="item" style="background-position: -97px 0;" data-num ="2"></div>
+            <div class="item" style="background-position: -194px 0;" data-num ="3"></div>
+            <div class="item" style="background-position: 0 -117px;" data-num ="4"></div>
+            <div class="item" style="background-position: -97px -117px;" data-num ="5"></div>
+            <div class="item" style="background-position: -194px -117px;" data-num ="6"></div>
+            <div class="item" style="background-position: 0 -234px;" data-num ="7"></div>
+            <div class="item" style="background-position: -97px -234px;" data-num ="8"></div>
+            <div class="item" style="background-position: -194px -234px;" data-num ="9"></div>
+        </div>
+        <div class="drag-box" id="drag"></div>
+    </div>
+    
+    <p class="overlay" id="overlay"></p>
+    <div class="button" id="play">开始游戏</div>
+
+
+
+
+
+    <script type="text/javascript">
+
+    /**
+     * Created by liyanlong on 16/6/21.
+     */
+    /**
+     * @author  : liyanlong
+     * @version : 1.0.0
+     * @date    : 2016-06-21
+     */
+    ;(function(window){
+        function Puzzle(options){
+            //默认参数
+            var defaults = {
+                container : "#box",
+                item : ".item",
+                itemWidth : 300,
+                itemHeight : 300,
+                rows : 3,
+                column : 3,
+                dragBox : "#drag",
+                success : function(){},
+                fail : function(){}
+            }
+            
+            this.options = this.extend(defaults,options);
+            var op = this.options;
+
+            //全局函数
+            this.wrap = document.querySelector(op.container);
+            this.drag = document.querySelector(op.dragBox);
+            this.betweenLeft = this.wrap.getBoundingClientRect().left;
+            this.betweenTop = this.wrap.getBoundingClientRect().top;
+            this.containerW = this.wrap.getBoundingClientRect().width;
+            this.containerH = this.wrap.getBoundingClientRect().height; 
+            this.isPop = false;
+            this.comparison = ["00","10","20","01","11","21","02","12","22"];
+            this.init();
+        }
+
+        Puzzle.prototype = {
+            init : function(){
+                this.insertContent();
+                this._bind();
+            },
+            extend : function(target,source){
+                for(var i in source){
+                    target[i] = source[i];
+                }
+                return target;
+            },
+            sortRandom : function(){
+                var op = this.options;
+                this.itemList = document.querySelectorAll(op.item);
+                var arr = this.arrFomat(this.itemList);  
+                arr.sort(this.randowsort);
+
+                return arr ;
+            },
+            insertContent : function(){
+                var op = this.options,
+                    arr = this.sortRandom(),
+                    fragment = document.createDocumentFragment();
+
+                for (var i = 0; i < arr.length; i++) {
+                    fragment.appendChild(arr[i])
+                };
+                this.wrap.innerHTML = "";
+                this.wrap.appendChild(fragment);
+                this.saveHtml = this.wrap.innerHTML;
+            },
+            arrFomat : function(objList){
+                var arr = [];
+                var divArr = [].slice.call(objList)
+                return divArr;
+            },
+            _bind : function(){
+                for (var i = 0,len = this.itemList.length; i < len; i++) {
+                    if(this.isMoblie){
+                        this.touchDrag(this.itemList[i]);
+                    }else{
+
+                    }
+                };
+            },
+            randowsort : function(a,b){
+                return Math.random()>.5 ? -1 : 1;  
+            },
+            isMoblie : function(){
+                return ("ontouchstart" in document) ? true : false;
+            },
+            touchDrag : function(obj){
+                var intX=intY=0,
+                    op = this.options,
+                    zdex = obj.style.zIndex,
+                    prevX,prevY,moveStartIndex,moveEndIndex,touchendLeft,touchendTop,compareX,compareY;
+
+
+                var _this = this;
+
+                obj.addEventListener("touchstart", function(ev){
+                    ev.preventDefault();
+                    var touch = ev.touches[0];
+                    if(ev.touches.length>1) return;
+
+
+                   
+                    prevX = obj.offsetLeft;
+                    prevY = obj.offsetTop;
+
+                    
+                    
+
+                    intX = Number(touch.pageX) - prevX;
+                    intY = Number(touch.pageY) - prevY;
+
+                    //添加拖动块 
+                    _this.drag.style.backgroundPosition = getComputedStyle(ev.target,null)["background-position"];
+                    _this.drag.style.left = prevX +"px";
+                    _this.drag.style.top = prevY +"px";
+
+                    
+                    moveStartIndex = _this.getIndex(ev.target);
+                }, false)
+
+
+
+
+
+
+                obj.addEventListener("touchmove", function(ev){
+                    ev.preventDefault();
+                    var touch = ev.touches[0];
+
+                    if(ev.touches.length>1) return;
+
+
+                    touchendLeft = touch.pageX - _this.betweenLeft;
+                    touchendTop = touch.pageY - _this.betweenTop;
+
+                    _this.drag.style.display =  "block";
+                    _this.drag.style.left = touch.pageX-intX + 'px';
+                    _this.drag.style.top = touch.pageY-intY + 'px';
+                }, false)
+
+                obj.addEventListener("touchend", function(ev){
+                    ev.preventDefault();
+                    _this.drag.style.display = "none";
+
+                    compareX  = compareY = undefined;
+
+                    if(touchendLeft == undefined || touchendTop == undefined) return;
+
+                    for (var i = 0,len = op.rows ; i < len; i++) {
+                        if(touchendLeft <= _this.containerW && touchendLeft - op.itemWidth*i>=0 && touchendLeft - op.itemWidth*i < op.itemWidth){
+                            compareX = i.toString();
+                        }
+                    };
+
+                    for (var i = 0,len = op.column ; i < len; i++) {
+                        if(touchendTop <= _this.containerH && touchendTop - op.itemHeight*i>=0 && touchendTop - op.itemHeight*i < op.itemHeight){
+                            compareY = i.toString();
+                        }
+                    };
+                    var itemList = document.querySelectorAll(op.item);
+                    var comparXY = compareX + compareY;
+
+
+                    if(compareX == undefined || compareY == undefined){
+                        return false;
+                    }
+                    
+
+                    _this.comparison.forEach(function(num,i){
+                        if(comparXY == num){
+                            var bgp = getComputedStyle(itemList[i],null)["background-position"];
+                            var dataNum = itemList[i].dataset.num;
+                            itemList[i].style.backgroundPosition = getComputedStyle(obj,null)["background-position"];
+                            itemList[i].dataset.num = obj.dataset.num;
+                            obj.style.backgroundPosition = bgp;
+                            obj.dataset.num = dataNum;
+
+                            moveEndIndex = i
+                        }   
+                    })
+
+
+                    var update = _this.updatePuzzle();
+                    if(!!update){
+                        update = false;
+                        _this.wrap.style.backgroundImage= "url(1.png)";
+                        _this.wrap.style.backgroundRepeat = "no-repeat";
+                        for (var i = 0,len=_this.itemList.length; i < len; i++) {
+                            _this.itemList[i].classList.add("fadeOut");
+                        };
+                        op.success && op.success();
+                    }
+
+                    
+
+                    // _this.wrap.addEventListener("webkitAnimationEnd", function(){ //动画结束时事件 
+                    //     if(!_this.isPop){
+                    //         _this.isPop = true;
+                            
+                    //     }
+                    // }, false); 
+
+                }, false)
+            },
+            getIndex : function(elem){
+                return ( elem && elem.parentNode ) ? this.prevAll(elem).length : -1;
+            },
+            prevAll : function(elem){
+                var match = [],
+                    cur = elem.previousSibling;
+                while(cur && cur.nodeTpye != 9){
+                    if(cur.nodeType == 1){
+                        match.push(cur)
+                    }
+                    cur = cur.previousSibling
+                }
+                return match;
+            },
+            updatePuzzle : function(){
+                var op = this.options,
+                    itemList = document.querySelectorAll(op.item);
+                var isSort = true;
+                for (var i = 0,len = itemList.length; i < len; i++) {
+                    if(itemList[i].dataset.num*1 != i+1){
+                        isSort = false;
+                    }
+                };
+                return isSort;
+            },
+            restart : function(){
+                this.wrap.innerHTML = this.saveHtml;
+                this.insertContent();
+                this._bind();
+            }
+        }
+
+        window.Puzzle = Puzzle;
+    })(window);
+    if (typeof define === "function" && define.amd) {
+        define("PageSlider", [], function () {
+            return PageSlider;
+        });
+    }
+
+
+
+
+
+
+    var btn = document.getElementById("play");
+    var ready =  document.getElementById("ready");
+    var TM,puzzle;
+    btn.addEventListener("touchend", function(ev){
+        var _this = ev.target;
+        if(_this.className.indexOf("forbidden") > -1) return;
+        _this.classList.add("forbidden");
+        ready.style.display = "block";
+
+        setTimeout(function(){
+            ready.style.display = "none";
+            if(_this.innerHTML == "开始游戏"){
+                puzzle = new Puzzle({
+                    itemWidth : 97,
+                    itemHeight : 117,
+                    success : function(){
+                        clearInterval(TM)
+                        alert("游戏成功！");
+                        btn.innerHTML = "重新开始";
+                        btn.classList.remove("forbidden");
+                    }
+                });
+            }else{
+                puzzle.restart();
+            }
+            
+
+            counter();
+
+        }, 4000)
+    }, false)
+    
+    function counter(){
+        var timer = document.getElementById("timer2");
+        var index = 1;
+        TM = setInterval(function(){
+            timer.innerHTML = index
+            if(index == 30){
+                clearInterval(TM);
+                alert("游戏失败！")
+                btn.innerHTML = "重新开始";
+                btn.classList.remove("forbidden");
+            }
+            index++;
+        }, 1000)
+    }
+
+
+
+    
+
+    </script>
+
+</div>
+</body>
+</html>
+    
