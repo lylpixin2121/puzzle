@@ -43,7 +43,7 @@ audio,canvas,video,progress{display:inline-block;}
 <!--[if IE 6]><script>document.execCommand("BackgroundImageCache", false, true)</script><![endif]-->
 <style type="text/css">
     .doc{width: 291px;margin:0 auto;text-align: center;}
-    .wraper{width: 291px;height: 351px;margin:0 auto 50px;position: relative;}
+    .wraper{width: 291px;height: 351px;margin:0 auto 20px;position: relative;}
     .itemWrap{width: 291px;height: 351px;overflow: hidden;position: relative;background-size: 291px;}
     .wraper .itemWrap>div{width: 97px;height: 117px;position: absolute;border:1px solid #fff;background: url(1.png) no-repeat;background-size: 291px;}
 
@@ -93,8 +93,7 @@ audio,canvas,video,progress{display:inline-block;}
     .s1 span{color: #000;font-weight: bold;}
     .button{width: 100px;height: 30px;font-size: 20px;background:#000;color: #fff;line-height: 30px;margin: 0 auto;border-radius: 20px;}
     .forbidden{background:#ccc;}
-    .overlay{width: 100%;height: 423px;position: absolute;top: 0;left: 0;z-index:20;display: none;}
-    .drag-box{display:none;width:96px;height:116px;position:absolute;z-index:99;background:url("1.png") no-repeat;background-size: 291px;border: 1px solid #fff;opacity: 0.7;}
+
 </style>
 </head>
 
@@ -120,268 +119,35 @@ audio,canvas,video,progress{display:inline-block;}
             <div class="item" style="background-position: -97px -234px;" data-num ="8"></div>
             <div class="item" style="background-position: -194px -234px;" data-num ="9"></div>
         </div>
-        <div class="drag-box" id="drag"></div>
     </div>
-    
     <p class="overlay" id="overlay"></p>
     <div class="button" id="play">开始游戏</div>
 
 
 
 
-
+    <script type="text/javascript" src="puzzle.js"></script>
     <script type="text/javascript">
 
-    /**
-     * Created by liyanlong on 16/6/21.
-     */
-    /**
-     * @author  : liyanlong
-     * @version : 1.0.0
-     * @date    : 2016-06-21
-     */
-    ;(function(window){
-        function Puzzle(options){
-            //默认参数
-            var defaults = {
-                container : "#box",
-                item : ".item",
-                itemWidth : 300,
-                itemHeight : 300,
-                rows : 3,
-                column : 3,
-                dragBox : "#drag",
-                success : function(){},
-                fail : function(){}
-            }
-            
-            this.options = this.extend(defaults,options);
-            var op = this.options;
 
-            //全局函数
-            this.wrap = document.querySelector(op.container);
-            this.drag = document.querySelector(op.dragBox);
-            this.betweenLeft = this.wrap.getBoundingClientRect().left;
-            this.betweenTop = this.wrap.getBoundingClientRect().top;
-            this.containerW = this.wrap.getBoundingClientRect().width;
-            this.containerH = this.wrap.getBoundingClientRect().height; 
-            this.isPop = false;
-            this.comparison = ["00","10","20","01","11","21","02","12","22"];
-            this.init();
-        }
-
-        Puzzle.prototype = {
-            init : function(){
-                this.insertContent();
-                this._bind();
-            },
-            extend : function(target,source){
-                for(var i in source){
-                    target[i] = source[i];
-                }
-                return target;
-            },
-            sortRandom : function(){
-                var op = this.options;
-                this.itemList = document.querySelectorAll(op.item);
-                var arr = this.arrFomat(this.itemList);  
-                arr.sort(this.randowsort);
-
-                return arr ;
-            },
-            insertContent : function(){
-                var op = this.options,
-                    arr = this.sortRandom(),
-                    fragment = document.createDocumentFragment();
-
-                for (var i = 0; i < arr.length; i++) {
-                    fragment.appendChild(arr[i])
-                };
-                this.wrap.innerHTML = "";
-                this.wrap.appendChild(fragment);
-                this.saveHtml = this.wrap.innerHTML;
-            },
-            arrFomat : function(objList){
-                var arr = [];
-                var divArr = [].slice.call(objList)
-                return divArr;
-            },
-            _bind : function(){
-                for (var i = 0,len = this.itemList.length; i < len; i++) {
-                    if(this.isMoblie){
-                        this.touchDrag(this.itemList[i]);
-                    }else{
-
-                    }
-                };
-            },
-            randowsort : function(a,b){
-                return Math.random()>.5 ? -1 : 1;  
-            },
-            isMoblie : function(){
-                return ("ontouchstart" in document) ? true : false;
-            },
-            touchDrag : function(obj){
-                var intX=intY=0,
-                    op = this.options,
-                    zdex = obj.style.zIndex,
-                    prevX,prevY,moveStartIndex,moveEndIndex,touchendLeft,touchendTop,compareX,compareY;
-
-
-                var _this = this;
-
-                obj.addEventListener("touchstart", function(ev){
-                    ev.preventDefault();
-                    var touch = ev.touches[0];
-                    if(ev.touches.length>1) return;
-
-
-                   
-                    prevX = obj.offsetLeft;
-                    prevY = obj.offsetTop;
-
-                    
-                    
-
-                    intX = Number(touch.pageX) - prevX;
-                    intY = Number(touch.pageY) - prevY;
-
-                    //添加拖动块 
-                    _this.drag.style.backgroundPosition = getComputedStyle(ev.target,null)["background-position"];
-                    _this.drag.style.left = prevX +"px";
-                    _this.drag.style.top = prevY +"px";
-
-                    
-                    moveStartIndex = _this.getIndex(ev.target);
-                }, false)
-
-
-                obj.addEventListener("touchmove", function(ev){
-                    ev.preventDefault();
-                    var touch = ev.touches[0];
-
-                    if(ev.touches.length>1) return;
-
-
-                    touchendLeft = touch.pageX - _this.betweenLeft;
-                    touchendTop = touch.pageY - _this.betweenTop;
-
-                    _this.drag.style.display =  "block";
-                    _this.drag.style.left = touch.pageX-intX + 'px';
-                    _this.drag.style.top = touch.pageY-intY + 'px';
-                }, false)
-
-                obj.addEventListener("touchend", function(ev){
-                    ev.preventDefault();
-                    _this.drag.style.display = "none";
-
-                    compareX  = compareY = undefined;
-
-                    if(touchendLeft == undefined || touchendTop == undefined) return;
-
-                    for (var i = 0,len = op.rows ; i < len; i++) {
-                        if(touchendLeft <= _this.containerW && touchendLeft - op.itemWidth*i>=0 && touchendLeft - op.itemWidth*i < op.itemWidth){
-                            compareX = i.toString();
-                        }
-                    };
-
-                    for (var i = 0,len = op.column ; i < len; i++) {
-                        if(touchendTop <= _this.containerH && touchendTop - op.itemHeight*i>=0 && touchendTop - op.itemHeight*i < op.itemHeight){
-                            compareY = i.toString();
-                        }
-                    };
-                    var itemList = document.querySelectorAll(op.item);
-                    var comparXY = compareX + compareY;
-
-
-                    if(compareX == undefined || compareY == undefined){
-                        return false;
-                    }
-                    
-
-                    _this.comparison.forEach(function(num,i){
-                        if(comparXY == num){
-                            var bgp = getComputedStyle(itemList[i],null)["background-position"];
-                            var dataNum = itemList[i].dataset.num;
-                            itemList[i].style.backgroundPosition = getComputedStyle(obj,null)["background-position"];
-                            itemList[i].dataset.num = obj.dataset.num;
-                            obj.style.backgroundPosition = bgp;
-                            obj.dataset.num = dataNum;
-
-                            moveEndIndex = i
-                        }   
-                    })
-
-
-                    var update = _this.updatePuzzle();
-                    if(!!update){
-                        update = false;
-                        _this.wrap.style.backgroundImage= "url(1.png)";
-                        _this.wrap.style.backgroundRepeat = "no-repeat";
-                        for (var i = 0,len=_this.itemList.length; i < len; i++) {
-                            _this.itemList[i].classList.add("fadeOut");
-                        };
-                        op.success && op.success();
-                    }
-
-                    
-
-                    // _this.wrap.addEventListener("webkitAnimationEnd", function(){ //动画结束时事件 
-                    //     if(!_this.isPop){
-                    //         _this.isPop = true;
-                            
-                    //     }
-                    // }, false); 
-
-                }, false)
-            },
-            getIndex : function(elem){
-                return ( elem && elem.parentNode ) ? this.prevAll(elem).length : -1;
-            },
-            prevAll : function(elem){
-                var match = [],
-                    cur = elem.previousSibling;
-                while(cur && cur.nodeTpye != 9){
-                    if(cur.nodeType == 1){
-                        match.push(cur)
-                    }
-                    cur = cur.previousSibling
-                }
-                return match;
-            },
-            updatePuzzle : function(){
-                var op = this.options,
-                    itemList = document.querySelectorAll(op.item);
-                var isSort = true;
-                for (var i = 0,len = itemList.length; i < len; i++) {
-                    if(itemList[i].dataset.num*1 != i+1){
-                        isSort = false;
-                    }
-                };
-                return isSort;
-            },
-            restart : function(){
-                this.wrap.innerHTML = this.saveHtml;
-                this.insertContent();
-                this._bind();
-            }
-        }
-
-        window.Puzzle = Puzzle;
-    })(window);
-    if (typeof define === "function" && define.amd) {
-        define("PageSlider", [], function () {
-            return PageSlider;
-        });
-    }
-
-
-
+    // puzzle = new Puzzle({
+    //     itemWidth : 97,
+    //     itemHeight : 117,
+    //     isRandom : false,
+    //     sortArr: [7,6,2,3,8,5,1,4,9],
+    //     success : function(){
+    //         clearInterval(TM)
+    //         alert("游戏成功！");
+    //         btn.innerHTML = "重新开始";
+    //         btn.classList.remove("forbidden");
+    //     }
+    // });
 
 
 
     var btn = document.getElementById("play");
     var ready =  document.getElementById("ready");
+    // var overlay = document.getElementById("overlay");
     var TM,puzzle;
     btn.addEventListener("touchend", function(ev){
         var _this = ev.target;
@@ -398,6 +164,7 @@ audio,canvas,video,progress{display:inline-block;}
                     success : function(){
                         clearInterval(TM)
                         alert("游戏成功！");
+                        // overlay.style.display = "block";
                         btn.innerHTML = "重新开始";
                         btn.classList.remove("forbidden");
                     }
