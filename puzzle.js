@@ -194,7 +194,7 @@
                 var update = _this.updatePuzzle();
                 if(!!update){
                     update = false;
-                    _this.wrap.style.backgroundImage= "url(1.png)";
+                    _this.wrap.style.backgroundImage= "url("+ op.bgImg +")";
                     _this.wrap.style.backgroundRepeat = "no-repeat";
                     for (var i = 0,len=_this.itemList.length; i < len; i++) {
                         _this.itemList[i].classList.add("fadeOut");

@@ -45,7 +45,7 @@ audio,canvas,video,progress{display:inline-block;}
     .doc{width: 291px;margin:0 auto;text-align: center;}
     .wraper{width: 291px;height: 351px;margin:0 auto 20px;position: relative;}
     .itemWrap{width: 291px;height: 351px;overflow: hidden;position: relative;background-size: 291px;}
-    .wraper .itemWrap>div{width: 97px;height: 117px;position: absolute;border:1px solid #fff;background: url(1.png) no-repeat;background-size: 291px;}
+    .wraper .itemWrap>div{width: 97px;height: 117px;position: absolute;border:1px solid #fff;/*background: url(1.png) no-repeat;background-size: 291px;*/}
 
 
 
@@ -130,69 +130,70 @@ audio,canvas,video,progress{display:inline-block;}
     <script type="text/javascript">
 
 
-    // puzzle = new Puzzle({
-    //     itemWidth : 97,
-    //     itemHeight : 117,
-    //     isRandom : false,
-    //     sortArr: [7,6,2,3,8,5,1,4,9],
-    //     success : function(){
-    //         clearInterval(TM)
-    //         alert("游戏成功！");
-    //         btn.innerHTML = "重新开始";
-    //         btn.classList.remove("forbidden");
-    //     }
-    // });
+    puzzle = new Puzzle({
+        itemWidth : 97,
+        itemHeight : 117,
+        isRandom : false,
+        sortArr: [7,6,2,3,8,5,1,4,9],
+        bgImg : "2.jpg",
+        success : function(){
+            clearInterval(TM)
+            alert("游戏成功！");
+            btn.innerHTML = "重新开始";
+            btn.classList.remove("forbidden");
+        }
+    });
 
 
 
-    var btn = document.getElementById("play");
-    var ready =  document.getElementById("ready");
-    // var overlay = document.getElementById("overlay");
-    var TM,puzzle;
-    btn.addEventListener("touchend", function(ev){
-        var _this = ev.target;
-        if(_this.className.indexOf("forbidden") > -1) return;
-        _this.classList.add("forbidden");
-        ready.style.display = "block";
+    // var btn = document.getElementById("play");
+    // var ready =  document.getElementById("ready");
+    // // var overlay = document.getElementById("overlay");
+    // var TM,puzzle;
+    // btn.addEventListener("touchend", function(ev){
+    //     var _this = ev.target;
+    //     if(_this.className.indexOf("forbidden") > -1) return;
+    //     _this.classList.add("forbidden");
+    //     ready.style.display = "block";
 
-        setTimeout(function(){
-            ready.style.display = "none";
-            if(_this.innerHTML == "开始游戏"){
-                puzzle = new Puzzle({
-                    itemWidth : 97,
-                    itemHeight : 117,
-                    success : function(){
-                        clearInterval(TM)
-                        alert("游戏成功！");
-                        // overlay.style.display = "block";
-                        btn.innerHTML = "重新开始";
-                        btn.classList.remove("forbidden");
-                    }
-                });
-            }else{
-                puzzle.restart();
-            }
+    //     setTimeout(function(){
+    //         ready.style.display = "none";
+    //         if(_this.innerHTML == "开始游戏"){
+    //             puzzle = new Puzzle({
+    //                 itemWidth : 97,
+    //                 itemHeight : 117,
+    //                 success : function(){
+    //                     clearInterval(TM)
+    //                     alert("游戏成功！");
+    //                     // overlay.style.display = "block";
+    //                     btn.innerHTML = "重新开始";
+    //                     btn.classList.remove("forbidden");
+    //                 }
+    //             });
+    //         }else{
+    //             puzzle.restart();
+    //         }
             
 
-            counter();
+    //         counter();
 
-        }, 4000)
-    }, false)
+    //     }, 4000)
+    // }, false)
     
-    function counter(){
-        var timer = document.getElementById("timer2");
-        var index = 1;
-        TM = setInterval(function(){
-            timer.innerHTML = index
-            if(index == 30){
-                clearInterval(TM);
-                alert("游戏失败！")
-                btn.innerHTML = "重新开始";
-                btn.classList.remove("forbidden");
-            }
-            index++;
-        }, 1000)
-    }
+    // function counter(){
+    //     var timer = document.getElementById("timer2");
+    //     var index = 1;
+    //     TM = setInterval(function(){
+    //         timer.innerHTML = index
+    //         if(index == 30){
+    //             clearInterval(TM);
+    //             alert("游戏失败！")
+    //             btn.innerHTML = "重新开始";
+    //             btn.classList.remove("forbidden");
+    //         }
+    //         index++;
+    //     }, 1000)
+    // }
 
 
 
