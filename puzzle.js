@@ -8,9 +8,22 @@
  */
 ;(function(window){
     function Puzzle(options){
-        //默认参数
+        /**
+         * 默认配置
+         *
+         * container:   拼图区域最外围的包裹容器,默认为"#puzzleBox"
+         * item:        容器内的拼图板块.默认为 ".item"
+         * itemWidth:   拼图板块的宽度，默认300
+         * itemHeight:  拼图板块的高度，默认300
+         * rows:        有多少行，默认3行
+         * column:      有多少列，默认3列
+         * bgImg:       拼图板块的背景图
+         * isRandom:    是否随机排列拼图板块，默认为：true,
+         * sortArr:     自定义板块顺序序列，此参数仅当isRandom为false时有效，默认为null
+         * success:     拼图成功的回调
+         */
         var defaults = {
-            container : "#box",
+            container : "#puzzleBox",
             item : ".item",
             itemWidth : 300,
             itemHeight : 300,
@@ -65,7 +78,7 @@
                         arr[i] = this.itemList[op.sortArr[i]-1];
                     };
                 }catch(e){
-                    throw("必须指定自定义的随机序列！")
+                    throw new Error("必须指定自定义的随机序列！");
                 }
                 
             }
@@ -261,7 +274,7 @@
     window.Puzzle = Puzzle;
 })(window);
 if (typeof define === "function" && define.amd) {
-    define("PageSlider", [], function () {
-        return PageSlider;
+    define("Puzzle", [], function () {
+        return Puzzle;
     });
 }
