@@ -109,21 +109,19 @@ audio,canvas,video,progress{display:inline-block;}
     <p class="s1"><i>20秒内移动碎片，拼出图片</i>已用时： <span id="timer2">0</span>S</p>
     <div class="wraper">
         <div class="itemWrap" id="puzzleBox">
-            <div class="item" style="background-position: 0 0;" data-num ="1"></div>
-            <div class="item" style="background-position: -97px 0;" data-num ="2"></div>
-            <div class="item" style="background-position: -194px 0;" data-num ="3"></div>
-            <div class="item" style="background-position: 0 -117px;" data-num ="4"></div>
-            <div class="item" style="background-position: -97px -117px;" data-num ="5"></div>
-            <div class="item" style="background-position: -194px -117px;" data-num ="6"></div>
-            <div class="item" style="background-position: 0 -234px;" data-num ="7"></div>
-            <div class="item" style="background-position: -97px -234px;" data-num ="8"></div>
-            <div class="item" style="background-position: -194px -234px;" data-num ="9"></div>
+            <div class="item" style="background-position: 0 0;" ></div>
+            <div class="item" style="background-position: -97px 0;" ></div>
+            <div class="item" style="background-position: -194px 0;" ></div>
+            <div class="item" style="background-position: 0 -117px;" ></div>
+            <div class="item" style="background-position: -97px -117px;" ></div>
+            <div class="item" style="background-position: -194px -117px;" ></div>
+            <!-- <div class="item" style="background-position: 0 -234px;" ></div>
+            <div class="item" style="background-position: -97px -234px;" ></div>
+            <div class="item" style="background-position: -194px -234px;" ></div> -->
         </div>
     </div>
     <p class="overlay" id="overlay"></p>
     <div class="button" id="play">开始游戏</div>
-
-
 
 
     <script type="text/javascript" src="puzzle.js"></script>
@@ -134,7 +132,9 @@ audio,canvas,video,progress{display:inline-block;}
         itemWidth : 97,
         itemHeight : 117,
         isRandom : false,
-        sortArr: [7,6,2,3,8,5,1,4,9],
+        sortArr: [6,2,3,5,1,4],
+        rows : 2,
+        column : 3,
         bgImg : "2.jpg",
         success : function(){
             clearInterval(TM)

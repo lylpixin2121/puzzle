@@ -28,7 +28,7 @@
             itemWidth : 300,
             itemHeight : 300,
             rows : 3,
-            column : 3,
+            column : 2,
             bgImg : "1.png",
             isRandom : true,
             sortArr : null,
@@ -47,7 +47,7 @@
         this.containerH = this.wrap.getBoundingClientRect().height; 
 
         this.isPop = false;
-        this.comparison = ["00","10","20","01","11","21","02","12","22"];
+        this.comparison = this.createCompareArr();
         this.init();
     }
 
@@ -66,7 +66,12 @@
         sortRandom : function(){
             var op = this.options;
             this.itemList = document.querySelectorAll(op.item);
-            for (var i = 0,len = this.itemList.length; i < len; i++) {
+            var len = this.itemList.length;
+            if(len != op.rows*op.column){
+                throw new Error("拖动块数有误 请重新检查！");
+            }
+            for (var i = 0; i < len; i++) {
+                this.itemList[i].dataset.num = i+1;
                 this.itemList[i].style.cssText = ";border:1px solid #fff;background: url("+ op.bgImg +") no-repeat;background-size:" + this.wrap.clientWidth + "px;" + this.itemList[i].style.cssText; 
             };
             var arr = this.arrFomat(this.itemList);  
@@ -88,6 +93,7 @@
             var op = this.options,
                 arr = this.sortRandom(),
                 fragment = document.createDocumentFragment();
+
 
             for (var i = 0; i < arr.length; i++) {
                 fragment.appendChild(arr[i])
@@ -170,13 +176,13 @@
 
                 if(touchendLeft == undefined || touchendTop == undefined) return;
 
-                for (var i = 0,len = op.rows ; i < len; i++) {
+                for (var i = 0,len = op.column ; i < len; i++) {
                     if(touchendLeft <= _this.containerW && touchendLeft - op.itemWidth*i>=0 && touchendLeft - op.itemWidth*i < op.itemWidth){
                         compareX = i.toString();
                     }
                 };
 
-                for (var i = 0,len = op.column ; i < len; i++) {
+                for (var i = 0,len = op.rows ; i < len; i++) {
                     if(touchendTop <= _this.containerH && touchendTop - op.itemHeight*i>=0 && touchendTop - op.itemHeight*i < op.itemHeight){
                         compareY = i.toString();
                     }
@@ -268,6 +274,17 @@
             this.mask = document.createElement("div");
             this.mask.style.cssText = "width:100%;height:" + maskH + "px;position:absolute;top:0;left:0;z-index:100;";
             document.body.appendChild(this.mask);
+        },
+        createCompareArr : function(){
+            var op = this.options,
+                arr = [];
+            for (var i = 0; i < op.rows; i++) {
+                for (var k = 0; k < op.column; k++) {
+                    var combineNum = k.toString() + i.toString();
+                    arr.push(combineNum);
+                };
+            };
+            return arr;
         }
     }
 
