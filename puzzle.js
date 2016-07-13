@@ -46,6 +46,7 @@
 
         this.isPop = false;
         this.comparison = this.createCompareArr();
+
         this.init();
     }
 
@@ -64,14 +65,22 @@
         },
         sortRandom : function(){
             var op = this.options;
+
             this.itemList = document.querySelectorAll(op.item);
             var len = this.itemList.length;
             if(len != op.rows*op.column){
                 throw new Error("拖动块数有误 请重新检查！");
             }
+
+
+            
             for (var i = 0; i < len; i++) {
+                var bgpX = this.comparison[i].split("")[0]*1 ? -(this.comparison[i].split("")[0]*1*op.itemWidth)+"px" : 0 ;
+                var bgpY = this.comparison[i].split("")[1]*1 ? -(this.comparison[i].split("")[1]*1*op.itemHeight)+"px" : 0 ;
+                
+
                 this.itemList[i].dataset.num = i+1;
-                this.itemList[i].style.cssText = ";border:1px solid #fff;background: url("+ op.bgImg +") no-repeat;background-size:" + this.wrap.clientWidth + "px;" + this.itemList[i].style.cssText; 
+                this.itemList[i].style.cssText = ";border:1px solid #fff;background: url("+ op.bgImg +") no-repeat;background-position:" + bgpX + " " + bgpY + ";background-size:" + this.wrap.clientWidth + "px;" + this.itemList[i].style.cssText; 
             };
             var arr = this.arrFomat(this.itemList);  
             if(op.isRandom){
