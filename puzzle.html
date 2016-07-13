@@ -115,9 +115,9 @@ audio,canvas,video,progress{display:inline-block;}
             <div class="item" style="background-position: 0 -117px;" ></div>
             <div class="item" style="background-position: -97px -117px;" ></div>
             <div class="item" style="background-position: -194px -117px;" ></div>
-            <!-- <div class="item" style="background-position: 0 -234px;" ></div>
+            <div class="item" style="background-position: 0 -234px;" ></div>
             <div class="item" style="background-position: -97px -234px;" ></div>
-            <div class="item" style="background-position: -194px -234px;" ></div> -->
+            <div class="item" style="background-position: -194px -234px;" ></div>
         </div>
     </div>
     <p class="overlay" id="overlay"></p>
@@ -131,16 +131,11 @@ audio,canvas,video,progress{display:inline-block;}
     puzzle = new Puzzle({
         itemWidth : 97,
         itemHeight : 117,
-        isRandom : false,
-        sortArr: [6,2,3,5,1,4],
-        rows : 2,
+        rows : 3,
         column : 3,
         bgImg : "2.jpg",
         success : function(){
-            clearInterval(TM)
             alert("游戏成功！");
-            btn.innerHTML = "重新开始";
-            btn.classList.remove("forbidden");
         }
     });
 

@@ -6,22 +6,20 @@
  * @version : 1.0.0
  * @date    : 2016-06-21
  */
-;(function(window){
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD
+        define(factory);
+    } else if (typeof exports === 'object') {
+        // Node, CommonJS之类的
+        module.exports = factory();
+    } else {
+        // 浏览器全局变量(root 即 window)
+        root.Puzzle = factory();
+    }
+}(this, function () {
     function Puzzle(options){
-        /**
-         * 默认配置
-         *
-         * container:   拼图区域最外围的包裹容器,默认为"#puzzleBox"
-         * item:        容器内的拼图板块.默认为 ".item"
-         * itemWidth:   拼图板块的宽度，默认300
-         * itemHeight:  拼图板块的高度，默认300
-         * rows:        有多少行，默认3行
-         * column:      有多少列，默认3列
-         * bgImg:       拼图板块的背景图
-         * isRandom:    是否随机排列拼图板块，默认为：true,
-         * sortArr:     自定义板块顺序序列，此参数仅当isRandom为false时有效，默认为null
-         * success:     拼图成功的回调
-         */
+        
         var defaults = {
             container : "#puzzleBox",
             item : ".item",
@@ -50,6 +48,7 @@
         this.comparison = this.createCompareArr();
         this.init();
     }
+
 
     Puzzle.prototype = {
         init : function(){
@@ -288,10 +287,5 @@
         }
     }
 
-    window.Puzzle = Puzzle;
-})(window);
-if (typeof define === "function" && define.amd) {
-    define("Puzzle", [], function () {
-        return Puzzle;
-    });
-}
+    return Puzzle;
+}));
